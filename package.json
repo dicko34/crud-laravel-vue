@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "@popperjs/core": "^2.11.6",
+        "@vitejs/plugin-vue": "^4.2.1",
+        "axios": "^1.1.2",
+        "bootstrap": "^4.5.0",
+        "laravel-vite-plugin": "^0.7.2",
+        "sass": "^1.56.1",
+        "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@inertiajs/vue3": "^1.0.6",
+        "jquery": "^3.6.4",
+        "material-icons": "^1.13.7",
+        "pinia": "^2.0.35",
+        "popper.js": "^1.16.1",
+        "sass-loader": "^13.2.2",
+        "vue-popperjs": "^2.3.0",
+        "vue-router": "^4.1.6"
+    }
+}
