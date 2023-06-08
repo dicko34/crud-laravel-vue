@@ -1,5 +1,6 @@
 <?php
 
+use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +20,3 @@ Route::controller('LogController')->group(function () {
     Route::put('crud/{user}/edit' , 'update');
     Route::delete('crud/{user}/delete' , 'destroy');
 });
-
-

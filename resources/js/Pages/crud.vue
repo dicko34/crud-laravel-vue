@@ -14,7 +14,7 @@ const selectAll = reactive({ selected: false }),
 
 // methods 
 const plusOne = computed({
-  get: () => checkedBoxes.value.length > 0 ? 'Selected' : 'All',
+  get: () => checkedBoxes.value.length > 0 &&  checkedBoxes.value != "all" ? 'Selected' : 'All',
 })
 let checkbox = $('table tbody input[type="checkbox"]');
 onMounted(() => {
@@ -38,6 +38,9 @@ let form = useForm({
 
 
 function addChecked( arg) {
+  if(checkedBoxes.value.includes("all")) {
+    checkedBoxes.value.splice(checkedBoxes.value.indexOf("all"), 1);
+  }
   if (checkedBoxes.value.includes(arg)) {
     checkedBoxes.value.splice(checkedBoxes.value.indexOf(arg), 1);
   } else {
@@ -48,6 +51,7 @@ function addChecked( arg) {
     console.log(checkedBoxes.value);
     selectAll.selected = false;
   } else {
+    console.log(checkedBoxes);
     selectAll.selected = true;
   }
 }
@@ -88,7 +92,10 @@ function edit(id) {
 }
 
 function destroy(id) {
-  id == "All" ? router.delete(`crud/all/delete`): router.delete(`crud/${id}/delete`);
+  id == "all" ? router.delete(`crud/all/delete`): router.delete(`crud/${id}/delete`);
+}
+function cc (k) {
+  console.log(k);
 }
 
 </script>
@@ -106,7 +113,7 @@ function destroy(id) {
                   <i class="material-icons">&#xE147;</i>
                 <span>Add New Employee</span>
               </a>
-              <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal" @click="[plusOne == 'All' ?addChecked('all') : addChecked(checkedBoxes.value) ]">
+              <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal" @click="[plusOne == 'All' ?addChecked('all') : cc(checkedBoxes) ]">
                 <i class="material-icons">&#xE15C;</i>
                 <span>Delete {{plusOne}}</span>
               </a>

@@ -44,9 +44,8 @@ class LogController extends Controller
             'phone' =>  'required|max:30|min:3',
         ]);
         log::create($validate);
-        return $request;
+        return Inertia::location('crud');
  
-//return to_route('profile');
     }
 
     /**
@@ -86,13 +85,13 @@ class LogController extends Controller
      */
     public function destroy($ids)
     {
-        $arr = [];
-        \array_push($arr,$ids); 
-        if($arr[0] == "all" ) {
-            DB::table('logs')->delete();
+        $ids = explode(',',$ids);
+        $arr = [...$ids];
+       if($arr[0] == "all" ) {
+            log::where('id', '!=' , null)->delete();
         } else {
             log::whereIn('id', $arr)->delete();
         }
-        return $arr;
+        return Inertia::location('crud');
     }
 }
