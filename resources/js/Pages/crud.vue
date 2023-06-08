@@ -74,14 +74,20 @@ const checkAll = function (event) {
     checkedBoxes.value = [];
   }
 }
-function shareDate(obj) {
+function shareData(obj) {
   form.id = obj.id;
   form.name = obj.name;
   form.email = obj.email;
   form.address = obj.address;
   form.phone = obj.phone;
 }
-
+function cleanData() {
+  form.id = "";
+  form.name = "";
+  form.email = "";
+  form.address = "";
+  form.phone = "";
+}
 function submit() {
   console.log(form);
   router.post('create', form)
@@ -109,7 +115,7 @@ function cc (k) {
                           <h2>Manage </h2>
                     </div>
                     <div class="col-sm-9 text-right">
-                          <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal" >
+                          <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal" @click="cleanData()">
                   <i class="material-icons">&#xE147;</i>
                 <span>Add New Employee</span>
               </a>
@@ -149,7 +155,7 @@ function cc (k) {
                         <td>{{user.address}}</td>
                         <td>{{user.phone}}</td>
                         <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal" @click="shareDate(user)">
+                            <a href="#editEmployeeModal" class="edit" data-toggle="modal" @click="shareData(user)">
                   <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                 </a>
                   <a href="#deleteEmployeeModal" class="delete" data-toggle="modal" @click=" checkedBoxes = [user.id];">
@@ -160,7 +166,7 @@ function cc (k) {
                 </tbody>
             </table>
             <div v-if="users.last_page > 1" class="clearfix">
-                <div class="hint-text">Showing <b>{{users.per_page}}</b> of <b>{{users.total}}</b> entries </div>
+                <div class="hint-text">Showing <b>{{ (users.total + users.per_page) -  (users.per_page * users.current_page) - (users.current_page == 1 ?(users.total - users.per_page) : '') }}</b> of <b>{{users.total}}</b> entries </div>
                 <ul class="pagination flex">
                   
                     <li class="page-item row">

@@ -19,7 +19,7 @@ class LogController extends Controller
     {
         //\var_dump( log::all());
         return Inertia::render("crud" , [
-            "users" => log::paginate(10)
+            "users" => log::paginate(5)
 
         ] );
     }
