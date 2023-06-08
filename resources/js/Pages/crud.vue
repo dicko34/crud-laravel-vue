@@ -1,20 +1,20 @@
 <script setup>
-import $ from 'jquery';
-import './../bootstrap';
-import 'material-icons/iconfont/material-icons.css';
+import $ from "jquery";
+import "./../bootstrap";
+import "material-icons/iconfont/material-icons.css";
 import {
   useForm,
   Link,
   router,
-} from '@inertiajs/vue3';
-import { computed, ref, reactive, onMounted } from 'vue';
+} from "@inertiajs/vue3";
+import { computed, ref, reactive, onMounted } from "vue";
 // Vrs
 const selectAll = reactive({ selected: false }),
       checkedBoxes = ref([]);
 
 // methods 
 const plusOne = computed({
-  get: () => checkedBoxes.value.length > 0 &&  checkedBoxes.value != "all" ? 'Selected' : 'All',
+  get: () => checkedBoxes.value.length > 0 &&  checkedBoxes.value != "all" ? "Selected" : "All",
 })
 let checkbox = $('table tbody input[type="checkbox"]');
 onMounted(() => {
@@ -47,11 +47,12 @@ function addChecked( arg) {
     checkedBoxes.value.push(arg);
   }
   if (checkbox.length !== checkedBoxes.value.length) {
-    console.log(checkbox.length);
-    console.log(checkedBoxes.value);
     selectAll.selected = false;
   } else {
-    console.log(checkedBoxes);
+    $('table tbody input[type="checkbox"]').each(function () {
+      this.checked = true;
+      checkedBoxes.value.push(Number($(this).val()));
+    });
     selectAll.selected = true;
   }
 }
@@ -65,7 +66,6 @@ const checkAll = function (event) {
       this.checked = true;
       checkedBoxes.value.push(Number($(this).val()));
     });
-    console.log(checkedBoxes.value);
   } else {
     selectAll.selected = false;
     checkbox.each(function () {
@@ -89,8 +89,7 @@ function cleanData() {
   form.phone = "";
 }
 function submit() {
-  console.log(form);
-  router.post('create', form)
+  router.post("create", form)
 }
 
 function edit(id) {
@@ -99,9 +98,6 @@ function edit(id) {
 
 function destroy(id) {
   id == "all" ? router.delete(`crud/all/delete`): router.delete(`crud/${id}/delete`);
-}
-function cc (k) {
-  console.log(k);
 }
 
 </script>
@@ -119,7 +115,7 @@ function cc (k) {
                   <i class="material-icons">&#xE147;</i>
                 <span>Add New Employee</span>
               </a>
-              <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal" @click="[plusOne == 'All' ?addChecked('all') : cc(checkedBoxes) ]">
+              <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal" @click="[plusOne == 'All' ?addChecked('all') : '' ]">
                 <i class="material-icons">&#xE15C;</i>
                 <span>Delete {{plusOne}}</span>
               </a>
@@ -267,7 +263,7 @@ function cc (k) {
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to delete these Records?</p>
+                    <p>Are you sure you want to delete {{plusOne == "All" ? "all" : "these"}} Records?</p>
                     <p class="text-warning">
                         <small>This action cannot be undone.</small>
                     </p>
