@@ -1,7 +1,5 @@
 /.phpunit.cache
 /node_modules
-/resources/js/Pages/good.vue
-/resources/js/router.js
 /public/build
 /public/hot
 /public/storage
